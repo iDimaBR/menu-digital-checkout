@@ -1,5 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('./database');
+const Category = require('./Category');
+const User = require('./User');
 
 const Product = sequelize.define('products', {
     id: {
@@ -28,5 +30,7 @@ const Product = sequelize.define('products', {
         allowNull: false,
     },
 });
+Product.belongsTo(Category);
+Product.belongsTo(User);
 
 module.exports = Product;
