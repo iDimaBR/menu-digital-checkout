@@ -6,4 +6,10 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
   dialect: 'mysql',
 });
 
+sequelize.sync().then(() => {
+  console.log('Banco de dados conectado');
+}).catch((error) => {
+  console.error('Erro ao conectar com o banco de dados', error);
+});
+
 module.exports = sequelize;

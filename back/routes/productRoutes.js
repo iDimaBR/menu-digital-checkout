@@ -1,16 +1,18 @@
 const express = require('express');
 const router = express.Router();
-//const jwt = require('jsonwebtoken');
-const Product = require('../models/product');
-const User = require('../models/user');
+const Product = require('../models/Product');
+const User = require('../models/User');
 require('dotenv').config();
 const verifyToken = require('../middlewares/authToken');
-const Category = require('../back/models/Category');
+const Category = require('../models/Category');
 
 router.post('/create', verifyToken, async (req, res) => {
     try {
         const { name, price, description, image, categoryId } = req.body;
         const userId = req.userId;
+        if (!userId) {
+            return res.status(404).json({ success: false, message: 'Usuário não encontrado' });
+        }
 
         const existingUser = await User.findByPk(userId);
         if (!existingUser) {
@@ -22,12 +24,12 @@ router.post('/create', verifyToken, async (req, res) => {
             return res.status(404).json({ success: false, message: 'Categoria não encontrada' });
         }
 
-        const newProduct = await Product.create({ name, price, description, image, categoryId, UserId: userId });
+        const newProduct = await Product.create({ name, price, description, image, categoryId, userId: userId });
 
         return res.status(201).json({ success: true, product: newProduct });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ success: false, message: 'Erro na criação do produto' });
+        return res.status(500).json({ success: false, message: 'Erro na criação do produto', error});
     }
 });
 
@@ -52,7 +54,7 @@ router.put('/:id', verifyToken, async (req, res) => {
         return res.status(200).json({ success: true, product: existingProduct });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ success: false, message: 'Erro ao atualizar o produto' });
+        return res.status(500).json({ success: false, message: 'Erro ao atualizar o produto', error });
     }
 });
 
@@ -63,14 +65,14 @@ router.delete('/:id', verifyToken, async (req, res) => {
 
         const existingProduct = await Product.findOne({ where: { id: productId, UserId: userId } });
         if (!existingProduct) {
-            return res.status(404).json({ message: 'Produto não encontrado ou não pertence ao usuário' });
+            return res.status(404).json({ message: 'Produto não encontrado' });
         }
 
         await existingProduct.destroy();
         return res.status(200).json({ message: 'Produto excluído com sucesso' });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: 'Erro ao excluir o produto' });
+        return res.status(500).json({ message: 'Erro ao excluir o produto', error });
     }
 });
 
@@ -80,8 +82,26 @@ router.get('/', verifyToken, async (req, res) => {
         return res.status(201).json({ success: true, products });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ success: false, message: 'Erro na listagem de produtos' });
+        return res.status(500).json({ success: false, message: 'Erro na listagem de produtos', error });
     }
 });
+
+router.get('/:username', verifyToken, async (req, res) => {
+    try {
+      const { username } = req.params;
+  
+      const user = await User.findOne({ where: { username } });
+      if (!user) {
+        return res.status(404).json({ success: false, message: 'Usuário não encontrado' });
+      }
+  
+      const products = await Product.findAll({ where: { userId: user.id } });
+  
+      return res.status(200).json({ success: true, products });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ success: false, message: 'Erro na listagem de produtos', error });
+    }
+  });
 
 module.exports = router;

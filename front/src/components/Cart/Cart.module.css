@@ -1,0 +1,55 @@
+/* CSS para o componente Cart */
+.cart {
+    background-color: #a14242;
+    color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 300px;
+    width: 100%;
+    max-height: 700px;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.items {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr; /* Modifiquei aqui para exibir apenas uma coluna */
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px; /* Adicionando um espaço interno para os itens */
+    background-color: rgba(255, 255, 255, 0.1); /* Adicionando uma cor de fundo */
+    border-radius: 8px; /* Arredondando as bordas dos itens */
+}
+
+.footer {
+    margin-top: auto; /* Mantém o footer fixo na parte inferior */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.total {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.checkoutButton {
+    background-color: #af0c66;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}

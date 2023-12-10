@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./database');
+const sequelize = require('../sequelize');
 const Category = require('./Category');
 const User = require('./User');
 
@@ -14,7 +14,7 @@ const Product = sequelize.define('products', {
         allowNull: false,
     },
     price: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DOUBLE,
         allowNull: false,
     },
     description: {
@@ -24,9 +24,7 @@ const Product = sequelize.define('products', {
     image: {
         type: DataTypes.STRING,
         allowNull: false,
-    },
+    }
 });
-Product.belongsTo(Category);
-Product.belongsTo(User);
 
 module.exports = Product;
