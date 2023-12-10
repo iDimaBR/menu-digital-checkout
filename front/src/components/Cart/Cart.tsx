@@ -1,6 +1,5 @@
-require('dotenv').config();
-import styles from './Cart.module.css';
-import mercadopago from 'mercadopago';
+import styles from "./Cart.module.css";
+import { api } from "../../services/api";
 
 interface CartItem {
     id: string;
@@ -17,29 +16,15 @@ interface CartProps {
 }
 
 const Cart = ({ items, total }: CartProps) => {
-
     const handleClickCheckout = async () => {
-        mercadopago.configure({
-          access_token: process.env.MP_TOKEN,
-        });
-    
-        const itemsForMercadoPago = items.map(item => ({
-          title: item.name,
-          description: item.description,
-          quantity: item.quantity,
-          currency_id: 'BRL',
-          unit_price: item.price,
-        }));
-    
-        const preference = {
-          items: itemsForMercadoPago,
-        };
-    
-        const response = await mercadopago.preferences.create(preference);
-
-        console.log(response);
-
-        window.location.href = response.body.init_point;
+        try {
+            const response = await api.post("/payment/checkout", { items });
+            if (response.data.url) {
+                window.location.href = response.data.url;
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -49,14 +34,32 @@ const Cart = ({ items, total }: CartProps) => {
                 {items.map((item) => (
                     <div className={styles.item} key={item.id}>
                         <span>{item.name}</span>
-                        <span>{item.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 })}</span>
+                        <span>
+                            {item.price.toLocaleString("pt-BR", {
+                                style: "currency",
+                                currency: "BRL",
+                                minimumFractionDigits: 2,
+                            })}
+                        </span>
                         <span>{item.quantity}</span>
                     </div>
                 ))}
             </div>
             <div className={styles.footer}>
-                <div className={styles.total}>Total: {total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 })}</div>
-                <div onClick={handleClickCheckout} className={styles.checkoutButton}>Finalizar compra</div>
+                <div className={styles.total}>
+                    Total:{" "}
+                    {total.toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                        minimumFractionDigits: 2,
+                    })}
+                </div>
+                <div
+                    onClick={handleClickCheckout}
+                    className={styles.checkoutButton}
+                >
+                    Finalizar compra
+                </div>
             </div>
         </div>
     );
