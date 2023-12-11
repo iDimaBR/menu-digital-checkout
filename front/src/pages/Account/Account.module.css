@@ -1,0 +1,128 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.side_cart {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.productsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 3;
+  background-color: #e49a9a;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.categoryCard {
+padding: 20px;
+margin-bottom: 20px;
+border-bottom: 4px dotted  #ccc5c5
+}
+
+.categoryName {
+font-weight: bold;
+font-size: 1.4rem;
+color: #f1f1f1;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.productCard {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 10px;
+}
+
+.productImage {
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.detailsContainer {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.detailsContainer span {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 2rem;
+  color: white;
+  background-color: #a14242;
+  border-radius: 10px 10px 0px 0px;
+  margin-bottom: 30px;
+  padding: 10px;
+}
+
+#name {
+  font-weight: 700;
+  color: #000;
+}
+
+#description {
+  background-color: #e4e4e4;
+  color: #777777;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+#price {
+  font-weight: 700;
+  color: #009688;
+}
+
+.quantityContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.removeFromCartButton,
+.addToCartButton {
+  background-color: #009688;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.button_account {
+  background-color: #af0c66;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  max-width: 340px;
+}
+
+.removeFromCartButton:hover,
+.addToCartButton:hover {
+  background-color: #00796b;
+}

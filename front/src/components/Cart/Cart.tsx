@@ -12,10 +12,11 @@ interface CartItem {
 
 interface CartProps {
     items: CartItem[];
+    clearCart: () => void;
     total: number;
 }
 
-const Cart = ({ items, total }: CartProps) => {
+const Cart = ({ items, clearCart, total }: CartProps) => {
     const handleClickCheckout = async () => {
         try {
             const response = await api.post("/payment/checkout", { items });
@@ -54,12 +55,12 @@ const Cart = ({ items, total }: CartProps) => {
                         minimumFractionDigits: 2,
                     })}
                 </div>
-                <div
-                    onClick={handleClickCheckout}
-                    className={styles.checkoutButton}
-                >
-                    Finalizar compra
+                <div onClick={handleClickCheckout} className={styles.checkoutButton}>
+                    Ir ao pagamento
                 </div>
+                <button onClick={clearCart} className={styles.checkoutButton}>
+                    Limpar
+                </button>
             </div>
         </div>
     );
