@@ -11,20 +11,7 @@ export const EditProduct = () => {
     const [categories, setCategories] = useState<CategoryData[]>([]);
     const navigate = useNavigate();
     const [product, setProduct] = useState<ProductData | null>(null);
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const { productId } = useParams();
-
-    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setSelectedImage(reader.result as string);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
 
     const handleBack = () => {
         navigate(`/account`);
@@ -43,7 +30,7 @@ export const EditProduct = () => {
         const fetchCategories = async () => {
             try {
                 const categoriesResponse = await api.get<CategoryData[]>(`/category/${username}`);
-                setCategories(categoriesResponse.data.categories || []);
+                setCategories(categoriesResponse.data || []);
             } catch (error) {
                 console.error(error);
             }
@@ -53,7 +40,7 @@ export const EditProduct = () => {
         fetchCategories();
     }, [username, productId]);
 
-    const getImageURL = async (data) => {
+    const getImageURL = async (data: ProductData) => {
         try {
             const formData = new FormData();
             formData.append("image", data.image[0]);
@@ -87,7 +74,7 @@ export const EditProduct = () => {
     return (
         product && (
             <form className={styles.container} onSubmit={handleSubmit(receiveSubmit)}>
-                <img src={selectedImage || product.image} className={styles.productImage} alt="Imagem do produto" />
+                {/* <img src={product.image} className={styles.productImage} alt="Imagem do produto" /> */}
                 {/* CORRIGIR PROBLEMA DA IMAGEM NÃO ENVIAR PELO POST */}
 
                 <div className={styles.fileInputWrapper}>
@@ -104,7 +91,7 @@ export const EditProduct = () => {
 
                 <div className={styles.input_group}>
                     <span>Preço</span>
-                    <input className={styles.textbox} defaultValue={product.price} {...register("price", { required: true })} placeholder="Preço" />
+                    <input className={styles.textbox} type="number" defaultValue={product.price} {...register("price", { required: true })} placeholder="Preço" />
                 </div>
 
                 <div className={styles.input_group}>

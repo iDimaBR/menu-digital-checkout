@@ -12,7 +12,7 @@ export const LoginPage = () => {
     
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm<LoginData>();
-    const { isLoggedIn, login, message } = useAuth();
+    const { login, message } = useAuth();
 
     const receiveSubmit = (data: LoginData) => {
         login(data.username, data.password);

@@ -102,7 +102,7 @@
 
 .removeFromCartButton,
 .addToCartButton {
-    background-color: #009688;
+    background-color: #14bda9;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -110,15 +110,16 @@
     cursor: pointer;
 }
 
-.button_account {
-    background-color: #af0c66;
-    color: #fff;
-    padding: 10px;
+.button {
+    width: 100%;
     border-radius: 10px;
     border: none;
-    font-size: 16px;
-    font-weight: 700;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #af0c66;
     cursor: pointer;
+    font-size: 18px;
+    color: white;
     max-width: 340px;
 }
 

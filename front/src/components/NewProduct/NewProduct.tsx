@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { api, normalApi } from "../../services/api";
+import { api } from "../../services/api";
 import styles from "./NewProduct.module.css";
 import { useForm } from "react-hook-form";
 
@@ -8,7 +8,7 @@ export interface ProductData {
     name: string;
     price: number;
     description: string;
-    image: FileList;
+    image: string;
     categoryId: number;
 }
 
@@ -25,7 +25,7 @@ export const NewProduct = ({ categories }: ProductProps) => {
     const { register, handleSubmit } = useForm<ProductData>();
     const navigate = useNavigate();
 
-    const getImageURL = async (data) => {
+    const getImageURL = async (data: ProductData) => {
         try {
             const formData = new FormData();
             formData.append("image", data.image[0]);
@@ -39,6 +39,7 @@ export const NewProduct = ({ categories }: ProductProps) => {
     };
 
     const receiveSubmit = async (data: ProductData) => {
+        console.log(data);
         try {
             const imageURL = await getImageURL(data);
             const response = await api.post("/product/create", {
@@ -60,11 +61,11 @@ export const NewProduct = ({ categories }: ProductProps) => {
 
     return (
         <form className={styles.container} onSubmit={handleSubmit(receiveSubmit)}>
-            <div className={styles.fileInputWrapper}>
-                    <label htmlFor="file-upload" className={styles.customFileUpload}>
+                <div className={styles.fileInputWrapper}>
+                    <label htmlFor="image" className={styles.customFileUpload}>
                         Selecionar foto
                     </label>
-                    <input id="file-upload" className={styles.fileInput} type="file" name="image" accept="image/jpeg" />
+                    <input id="image" className={styles.fileInput} type="file" name="image" accept="image/jpeg" />
                 </div>
 
                 <div className={styles.input_group}>
@@ -74,7 +75,7 @@ export const NewProduct = ({ categories }: ProductProps) => {
 
                 <div className={styles.input_group}>
                     <span>Preço</span>
-                    <input className={styles.textbox} {...register("price", { required: true })} />
+                    <input className={styles.textbox} type="number" {...register("price", { required: true })} />
                 </div>
 
                 <div className={styles.input_group}>

@@ -8,10 +8,6 @@ export const AddProductPage = () => {
     const [categories, setCategories] = useState([]);
     const username = localStorage.getItem("username");
 
-    const handleBack = () => {
-        navigate(`/account`);
-    };
-
     useEffect(() => {
         const fetchData = async () => {
             try {

@@ -100,9 +100,7 @@ color: #f1f1f1;
   color: #000;
 }
 
-.removeFromCartButton,
-.addToCartButton {
-  background-color: #009688;
+.removeFromCartButton, .addToCartButton {
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -110,15 +108,24 @@ color: #f1f1f1;
   cursor: pointer;
 }
 
-.button_account {
-  background-color: #af0c66;
-  color: #fff;
-  padding: 10px;
+.removeFromCartButton {
+  background-color: #bd2c7b;
+}
+
+.addToCartButton {
+  background-color: #14bda9;
+}
+
+.button {
+  width: 100%;
   border-radius: 10px;
   border: none;
-  font-size: 16px;
-  font-weight: 700;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #af0c66;
   cursor: pointer;
+  font-size: 18px;
+  color: white;
   max-width: 340px;
 }
 

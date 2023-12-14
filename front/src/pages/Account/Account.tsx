@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../../services/api';
 import styles from './Account.module.css';
-import { CategoryData } from '../../components/NewProduct/NewProduct';
+import { CategoryData, ProductData } from '../../components/NewProduct/NewProduct';
 
 const AccountPage = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState<CategoryData[]>([]);
-  const [owner, setOwner] = useState(false);
   const username = localStorage.getItem('username');
 
   const handleBack = () => {
@@ -25,7 +24,7 @@ const AccountPage = () => {
   const handleRemoveItem = (id: number) => {
     api.delete(`/product/${id}`).then((response) => {
       if (response.status === 200) {
-        setProducts(products.filter((product) => product.id !== id));
+        setProducts(products.filter((product: ProductData) => product.id !== id));
       }else{
         alert('Erro ao remover produto');
       }
@@ -39,7 +38,6 @@ const AccountPage = () => {
         if (userResponse.status === 404 || !userResponse.data.isOwner) {
           navigate('/shop/');
         }
-        setOwner(userResponse.data.isOwner);
 
         const productsResponse = await api.get(`/product/${username}`);
         if (productsResponse.data.redirect) {
@@ -68,9 +66,9 @@ const AccountPage = () => {
                             <span className={styles.categoryName}>Categoria: {category.name}</span>
                             <div className={styles.productGrid}>
                                 {products
-                                    .filter((product: Product) => product.categoryId === category.id)
-                                    .map((product: Product) => (
-                                        <div className={styles.productCard} id={product.id} key={product.id}>
+                                    .filter((product: ProductData) => product.categoryId === category.id)
+                                    .map((product: ProductData) => (
+                                        <div className={styles.productCard} id={product.id.toString()} key={product.id}>
                                             <img src={product.image} alt="Foto" className={styles.productImage} />
                                             <div className={styles.detailsContainer}>
                                                 <span id={styles.name}>{product.name}</span>
@@ -92,9 +90,9 @@ const AccountPage = () => {
                     ))}
                 </div>
                 <div className={styles.side_cart}>
-                  <button onClick={() => handleBack()} className={styles.addToCartButton}>Voltar</button>
-                  <button onClick={() => handleAddProduct()} className={styles.addToCartButton}>Adicionar Produto</button>
-                  <button onClick={() => handleAddCategory()} className={styles.addToCartButton}>Adicionar Categoria</button>
+                  <button onClick={() => handleBack()} className={styles.button}>Voltar</button>
+                  <button onClick={() => handleAddProduct()} className={styles.button}>Adicionar Produto</button>
+                  <button onClick={() => handleAddCategory()} className={styles.button}>Adicionar Categoria</button>
                 </div>
             </div>
         </>

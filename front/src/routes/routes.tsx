@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom'
 import { LoginPage } from '../pages/Login/Login';
 import { ShopPage } from '../pages/ShopPage/ShopPage';

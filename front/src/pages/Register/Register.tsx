@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { useAuth } from '../../contexts/AuthContext';
 import styles from './Register.module.css';
 import { useNavigate } from "react-router-dom";
-import { api } from "../../services/api";
 
 interface RegisterData {
     shop: string;
@@ -14,7 +13,7 @@ export const RegisterPage = () => {
     
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm<RegisterData>();
-    const { isLoggedIn, newUser, message } = useAuth();
+    const { newUser, message } = useAuth();
 
     const receiveSubmit = (data: RegisterData) => {
         newUser(data.shop, data.username, data.password);

@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../../services/api";
 import styles from "./ShopPage.module.css";
 import UseCart, { Product } from "../../data/UseCart";
 import Cart from "../../components/Cart/Cart";
 import { CategoryData } from "../../components/NewProduct/NewProduct";
+import { useAuth } from "../../contexts/AuthContext";
 
 export const ShopPage = () => {
     const { username } = useParams();
     const navigate = useNavigate();
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [owner, setOwner] = useState(false);
+    const { isLoggedIn } = useAuth();
 
     const [title, setTitle] = useState("");
     const { AddItem, RemoveItem, clearCart, items } = UseCart();
@@ -58,6 +61,7 @@ export const ShopPage = () => {
                 }
 
                 setTitle(response.data.user.shop);
+                setOwner(response.data.isOwner);
             } catch (error) {
                 navigate("/shop/");
             }
@@ -126,9 +130,11 @@ export const ShopPage = () => {
                     ))}
                 </div>
                 <div className={styles.side_cart}>
-                  <button onClick={() => navigate("/account")} className={styles.button_account}>
+                {!isLoggedIn && owner && (
+                  <button onClick={() => navigate("/account")} className={styles.button}>
                       Minha Conta
                   </button>
+                )}
                   <Cart items={items} clearCart={handleClearCart} total={getCartTotal()} />
                 </div>
             </div>
