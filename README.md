@@ -1,34 +1,34 @@
-# MeuCardápio - Sistema de Menu
+# MeuCardápio - Menu System
 
-Um sistema de menu digital que permite que os usuários (lojas) gerenciem seus produtos e categorias de maneira eficiente.
+A digital menu system that allows users (shops) to efficiently manage their products and categories.
 
-## Sobre
+## About
 
-Este projeto visa facilitar a criação de menus digitais para estabelecimentos, permitindo que os usuários criem, gerenciem e exibam seus produtos e categorias de forma online. Ele oferece um ambiente intuitivo para a gestão de cardápios digitais, proporcionando uma experiência simplificada tanto para os estabelecimentos quanto para os clientes.
+This project aims to simplify the creation of digital menus for businesses, allowing users to create, manage, and display their products and categories online. It provides an intuitive environment for managing digital menus, offering a streamlined experience for both businesses and their customers.
 
-## Funcionalidades
+## Features
 
-- Cadastro e autenticação de usuários (lojas).
-- CRUD (Create, Read, Update, Delete) de produtos.
-- Organização por categorias de produtos.
-- Integração com um gateway de pagamento (MercadoPago).
-- Checkout simplificado para usuários finais.
+- User (shop) registration and authentication.
+- Product CRUD (Create, Read, Update, Delete).
+- Organization by product categories.
+- Integration with a payment gateway (MercadoPago).
+- Simplified checkout for end users.
 
-## Tecnologias Utilizadas
+## Technologies Used
 
-- Node.js
-- Express.js
-- Sequelize ORM
-- TypeScript
-- React
-- Zustand (para gerenciamento de estado no frontend)
-- MercadoPago (para processamento de pagamentos)
+- Node.js  
+- Express.js  
+- Sequelize ORM  
+- TypeScript  
+- React  
+- Zustand (for frontend state management)  
+- MercadoPago (for payment processing)
 
-## Instalação
+## Installation
 
 ```bash
-# Clone o repositório
-git clone https://github.com/seu-usuario/menu-digital.git
+# Clone the repository
+git clone https://github.com/your-username/menu-digital.git
 
 # Backend
 cd menu-digital/back
